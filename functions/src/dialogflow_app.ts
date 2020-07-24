@@ -5,7 +5,7 @@ const agent_app = dialogflow({
 });
 
 agent_app.intent('webhook_intent', (e) => {
-    e.add("tu reputa madre");
+    e.add("Webhook intent response");
 });
 
-export { agent_app as dialogflow_app };
+export { agent_app as chatbot_app };
