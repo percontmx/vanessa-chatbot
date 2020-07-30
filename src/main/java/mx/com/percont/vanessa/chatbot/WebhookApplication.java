@@ -11,7 +11,7 @@ public class WebhookApplication extends DialogflowApp {
     @ForIntent("webhook_intent")
     public ActionResponse webhookIntent(ActionRequest request){
         ResponseBuilder builder = getResponseBuilder(request);
-        builder.add("Me pelas la merga");
+        builder.add("webhook intent message");
         return builder.build();
     }
 
