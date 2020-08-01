@@ -1,7 +1,9 @@
 package mx.com.percont.vanessa.chatbot;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,10 +14,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "WebhookHttpServlet", value = "/webhook")
+@Singleton
 public class WebhookHttpServlet extends HttpServlet {
 
-    private WebhookApplication app = new WebhookApplication();
+    private WebhookApplication app;
+
+    @Inject
+    public WebhookHttpServlet(WebhookApplication app) {
+        this.app = app;
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
