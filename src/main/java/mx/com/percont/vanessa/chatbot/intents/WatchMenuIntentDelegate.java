@@ -1,9 +1,13 @@
 package mx.com.percont.vanessa.chatbot.intents;
 
+import com.google.actions.api.ActionRequest;
 import com.google.actions.api.ActionResponse;
 import com.google.actions.api.response.ResponseBuilder;
 import com.google.api.services.actions_fulfillment.v2.model.BasicCard;
+import com.google.api.services.actions_fulfillment.v2.model.RichResponse;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -11,11 +15,13 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class WatchMenuIntent {
+public class WatchMenuIntentDelegate {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(WatchMenuIntentDelegate.class);
 
     private final String fileData;
 
-    public WatchMenuIntent() {
+    public WatchMenuIntentDelegate() {
         InputStream istream =
                 this.getClass().getResourceAsStream("/mx/com/percont/vanessa/chatbot/intents/dummy_menu_data.json");
         InputStreamReader isr = new InputStreamReader(istream);
@@ -23,7 +29,7 @@ public class WatchMenuIntent {
         this.fileData = r.lines().collect(Collectors.joining());
     }
 
-    public ActionResponse getResponse(ResponseBuilder responseBuilder) {
+    public ActionResponse getResponse(ActionRequest request, ResponseBuilder responseBuilder) {
         Product[] products = new Gson().fromJson(fileData, Product[].class);
         responseBuilder.add("Éste es el menú:");
         Arrays.asList(products).stream().map(p -> {
@@ -34,6 +40,7 @@ public class WatchMenuIntent {
         }).forEach(c -> {
             responseBuilder.add(c);
         });
+        RichResponse v = new RichResponse();
         return responseBuilder.build();
     }
 

@@ -10,7 +10,7 @@ public class WatchMenuIntentTest {
 
     @Test
     public void Merga() {
-        WatchMenuIntent i = new WatchMenuIntent();
+        WatchMenuIntentDelegate i = new WatchMenuIntentDelegate();
         Assert.assertNotNull(i);
     }
 
