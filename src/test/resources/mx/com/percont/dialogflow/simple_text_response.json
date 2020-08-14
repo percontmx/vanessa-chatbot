@@ -1,0 +1,19 @@
+{
+  "fulfillmentMessages": [
+    {
+      "text": {
+        "text": [
+          "Simple Text Response for Facebook."
+        ]
+      },
+      "platform": "FACEBOOK"
+    },
+    {
+      "text": {
+        "text": [
+          "Simple Text Response."
+        ]
+      }
+    }
+  ]
+}
