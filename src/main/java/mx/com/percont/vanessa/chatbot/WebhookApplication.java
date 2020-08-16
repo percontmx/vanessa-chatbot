@@ -1,18 +1,21 @@
 package mx.com.percont.vanessa.chatbot;
 
-import com.google.actions.api.ActionRequest;
-import com.google.actions.api.ActionResponse;
-import com.google.actions.api.DialogflowApp;
-import com.google.actions.api.ForIntent;
-import com.google.actions.api.response.ResponseBuilder;
+import com.google.gson.JsonObject;
+import mx.com.percont.dialogflow.ResponseBuilder;
+import mx.com.percont.dialogflow.response.Platform;
+import mx.com.percont.vanessa.chatbot.intents.IntentHandler;
 
-public class WebhookApplication extends DialogflowApp {
+public class WebhookApplication {
 
-    @ForIntent("webhook_intent")
-    public ActionResponse webhookIntent(ActionRequest request){
-        ResponseBuilder builder = getResponseBuilder(request);
-        builder.add("webhook intent message");
-        return builder.build();
+    public JsonObject handleRequest() {
+        IntentHandler handler = (builder -> {
+            builder.add(Platform.FACEBOOK, "Alitas Facebook");
+            builder.add("Alitas normales");
+            builder.add("Tender normales");
+            builder.add(Platform.FACEBOOK, "Tender Facebook");
+            return builder.build();
+        });
+        ResponseBuilder builder = new ResponseBuilder();
+        return handler.handle(builder);
     }
-
 }
